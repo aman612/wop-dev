@@ -1,20 +1,12 @@
-import fastapi, uvicorn
-from starlette.requests import Request
-import prometheus_client
+import fastapi
+import uvicorn
 import os
 
 api = fastapi.FastAPI()
 
-REQUESTS = prometheus_client.Counter(
-    "requests", "Application Request Count", ["endpoint"]
-)
-
-
 @api.get("/hello")
-def hello(request: Request):
-    REQUESTS.labels(endpoint="/hello").inc()
-    return "Hello World!"
-
+def hello():
+    return {"message": "Hello World!"}
 
 if __name__ == "__main__":
     print("Starting webserver...")
@@ -22,7 +14,6 @@ if __name__ == "__main__":
         api,
         host="0.0.0.0",
         port=int(os.getenv("PORT", 8080)),
-        debug=os.getenv("DEBUG", False),
         log_level=os.getenv("LOG_LEVEL", "info"),
         proxy_headers=True,
     )
