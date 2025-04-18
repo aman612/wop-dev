@@ -1,15 +1,15 @@
-version: 1.0 # version of the specification
-runtime: python3 # runtime to use
+version: 1.0
+runtime: python3.11
 build:
   commands:
     build:
-      - pip install -r requirements.txt # install dependencies
+      - pip install -r requirements.txt
 
-  env: # define environment variables
-    - name: PORT
-      value: '8080'
+env:
+  - name: PORT
+    value: '8080'
 
 run:
-  command: python app.py # command to run fastapi
+  command: uvicorn main:api --host 0.0.0.0 --port 8080
   network:
-    port: 8080 # port AppRunner will expose
+    port: 8080
