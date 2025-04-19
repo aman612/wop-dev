@@ -150,14 +150,13 @@ def refresh_token(request: RefreshRequest) -> dict[str, str]:
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid refresh token"
         )
 
+
 if __name__ == "__main__":
     print("Starting webserver...")
     uvicorn.run(
         api,
         host="0.0.0.0",
-        port=int(os.getenv("PORT", 8080)),
-        debug=os.getenv("DEBUG", False),
-        log_level=os.getenv('LOG_LEVEL', "info"),
-        proxy_headers=True
+        port=8080,
+        log_level="info",
+        proxy_headers=True,
     )
-
